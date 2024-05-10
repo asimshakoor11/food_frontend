@@ -47,10 +47,10 @@ export const Card = (props) => {
 
     return (
         <div>
-            <div class="card mt-3" style={{ "width": "16rem", "maxheight": "360px" }}>
-                <img src={props.foodItem.img} class="card-img-top" alt="..." style={{ objectFit: "fill", height: "150px" }} />
-                <div class="card-body">
-                    <h5 class="card-title">{props.foodItem.name}</h5>
+            <div className="card mt-3" style={{ "width": "16rem", "maxheight": "360px" }}>
+                <img src={props.foodItem.img} className="card-img-top" alt="..." style={{ objectFit: "fill", height: "150px" }} />
+                <div className="card-body">
+                    <h5 className="card-title">{props.foodItem.name}</h5>
                     <div className="w-100">
                         <div>
                             <select name="" id="" className='m-2 h-100  bg-success rounded text-white' onChange={(e) => { setQty(e.target.value) }}>
