@@ -6,7 +6,6 @@ export const Succcess = () => {
         <div>
             <div>
                 <Navbar />
-
             </div>
             <div className='container'>
                 <h1 className='fst-italic text-decoration-underline mt-5'>Your Payment was Successfull</h1>
