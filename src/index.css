@@ -16,3 +16,21 @@ body {
   max-height: 500px;
 }
 
+.Flogin{
+  height: 86vh;
+  background-image: url('./assets/pexels-chanwalrus-958545.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Flogin-inner{
+  background-color: rgba(250, 250, 250, 0.9);
+  color: black;
+  padding: 10px 20px;
+  margin: 40px 0;
+  width: 45rem;
+}
+
