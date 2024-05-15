@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { useDispatchCart, useCart } from './ContextReducer';
+import toast, { Toaster } from 'react-hot-toast';
+
+
 
 export const Card = (props) => {
 
@@ -25,19 +28,18 @@ export const Card = (props) => {
         if (food != []) {
             if (food.size === size) {
                 await dispatch({ type: "UPDATE", id: props.foodItem._id, price: finalPrice, qty: qty })
-
+                toast.success("Item updated in cart");
                 return
             }
             else if (food.size !== size) {
                 await dispatch({ type: "ADD", id: props.foodItem._id, name: props.foodItem.name, price: finalPrice, qty: qty, size: size })
+                toast.success("Item Added in cart");
                 return
             }
             return
         }
-
         await dispatch({ type: "ADD", id: props.foodItem._id, name: props.foodItem.name, price: finalPrice, qty: qty, size: size })
-
-
+        toast.success("Item Added in cart");
     }
 
     let finalPrice = qty * parseInt(options[size])
@@ -72,10 +74,11 @@ export const Card = (props) => {
                     </div>
                     <hr />
                     {(localStorage.getItem("authtoken")) ?
-                    <button className='btn btn-success justify-center ms-2' onClick={handleAddToCart}>Add to cart</button> : ""}
+                        <button className='btn btn-success justify-center ms-2' onClick={handleAddToCart}>Add to cart</button> : ""}
 
                 </div>
             </div>
+            <Toaster />
         </div>
     )
 }

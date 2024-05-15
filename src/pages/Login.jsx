@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export const Login = () => {
@@ -16,14 +17,16 @@ export const Login = () => {
 
     if (credientials.email && credientials.password) {
 
-      await axios.post('http://localhost:5000/api/loginuser', {
+      await axios.post('https://food-backend-ten.vercel.app/api/loginuser', {
         email: credientials.email, password: credientials.password
       }).then(function (response) {
-        alert(response.data.message)
+          toast.success(response.data.message);
 
         if (response.data.message === "Login Successfull") {
           localStorage.setItem("authtoken", response.data.authToken)
           localStorage.setItem("userEmail", credientials.email)
+          toast.success("Login Successfull");
+
           navigate("/")
         }
       })
@@ -32,7 +35,8 @@ export const Login = () => {
         });
     }
     else {
-      alert("Fill the required details")
+      // alert("Fill the required details")
+      toast.error('Fill the required details.');
     }
 
     //   const response = await fetch('http://localhost:5000/api/loginuser', {
@@ -84,6 +88,7 @@ export const Login = () => {
       <div>
         <Footer />
       </div>
+      <Toaster />
     </div>
   )
 }

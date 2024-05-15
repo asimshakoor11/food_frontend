@@ -3,6 +3,7 @@
 
 import React, { createContext, useContext, useReducer } from 'react'
 
+
 const CartStateContext = createContext();
 const CartDipatchContext = createContext();
 
@@ -16,6 +17,7 @@ const reducer = (state, action) => {
             return newArr;
         case "UPDATE":
             let arr = [...state]
+            
             arr.find((food, index) => {
                 if (food.id === action.id) {
                     arr[index] = { ...food, qty: parseInt(action.qty) + food.qty, price: action.price + food.price }

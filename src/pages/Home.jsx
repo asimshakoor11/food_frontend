@@ -5,7 +5,6 @@ import { Card } from '../components/Card'
 import { useState, useEffect } from 'react'
 import axios from "axios"
 
-
 export const Home = () => {
 
   const [search, setSearch] = useState("");
@@ -14,7 +13,7 @@ export const Home = () => {
 
   const loadData = async () => {
     return (
-      await axios.get('http://localhost:5000/api/foodData')
+      await axios.get('https://food-backend-ten.vercel.app/api/foodData')
         .then((response) => {
           setFoodItem(response.data[0])
           setFoodCat(response.data[1])

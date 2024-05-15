@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast';
+
 // import { events } from '../../backend/models/User'
 
 export const Signup = () => {
@@ -16,12 +18,12 @@ export const Signup = () => {
 
         if (credientials.name && credientials.email && credientials.password && credientials.geolocation) {
 
-            await axios.post('http://localhost:5000/api/createuser', {
+            await axios.post('https://food-backend-ten.vercel.app/api/createuser', {
                 name: credientials.name, email: credientials.email, password: credientials.password, location: credientials.geolocation
             }).then(function (response) {
-                    alert(response.data.message)
-
+                toast.success(response.data.message);
                 if (response.data.message == 'Signup Successfull!') {
+                    toast.success("Signup Successfull");
                     navigate("/login")
                 }
             })
@@ -30,9 +32,10 @@ export const Signup = () => {
                 });
         }
         else {
-            alert("Fill all the details")
+            toast.error('Fill the required details.');
+
         }
-    
+
     }
 
     const onChange = (event) => {
@@ -69,6 +72,8 @@ export const Signup = () => {
                 </form>
             </div>
             <div><Footer /></div>
+
+            <Toaster/>
 
 
         </>

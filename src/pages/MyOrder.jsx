@@ -6,7 +6,7 @@ export const MyOrder = () => {
     const [orderData, setOrderData] = useState("")
 
     const fetchMyOrder = async () => {
-        await fetch("http://localhost:5000/api/myOrderData", {
+        await fetch("https://food-backend-ten.vercel.app/api/myOrderData", {
             // credentials: 'include',
             // Origin:"http://localhost:3000/login",
             method: 'POST',
@@ -58,7 +58,7 @@ export const MyOrder = () => {
                                                     </div> :
 
                                                         <div className='col-12 col-md-6 col-lg-3' >
-                                                            <div className="card mt-3" style={{ width: "16rem", maxHeight: "360px" }}>
+                                                            <div className="card mt-3  p-2" style={{ width: "16rem", maxHeight: "360px" }}>
                                                                 <div className="card-body">
                                                                     <h5 className="card-title">{arrayData.name}</h5>
                                                                     <div className='container w-100 p-0' style={{ height: "38px" }}>

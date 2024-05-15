@@ -1,6 +1,8 @@
 import React from 'react'
 import Delete from '@mui/icons-material/Delete';
 import { useCart, useDispatchCart } from '../components/ContextReducer';
+import { loadStripe } from '@stripe/stripe-js';
+
 export default function Cartt() {
     let data = useCart();
     let dispatch = useDispatchCart();
@@ -14,12 +16,44 @@ export default function Cartt() {
     // const handleRemove = (index)=>{
     //   console.log(index)
     //   dispatch({type:"REMOVE",index:index})
+
+    const handleDelete = () => { 
+        dispatch({ type: "REMOVE", index: index }) 
+        toast.success("Item Delete");
+    }
     // }
 
     const handleCheckOut = async () => {
+
+
+        const stripe = await loadStripe("pk_test_51PG1tYJAAxwzjlgZoiLFnP5XSjVwqn47goGAqfpDDHot2Nf3ussmaAMZb66uC4ea1fKQhbFYRvCHjnVF8pENB81o00YT7oe4NO");
+
+        const headers = {
+            "Content-Type": "application/json"
+        }
+        const response1 = await fetch("https://food-backend-ten.vercel.app/api/create-checkout-session", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                order_data: data,
+                total_price: totalPrice,
+            })
+        });
+
+        const session = await response1.json();
+
+        const result = stripe.redirectToCheckout({
+            sessionId: session.id
+        });
+
+        if (result.error) {
+            console.log(result.error);
+        }
+
+
         let userEmail = localStorage.getItem("userEmail");
         // console.log(data,localStorage.getItem("userEmail"),new Date())
-        let response = await fetch("http://localhost:5000/api/orderData", {
+        let response = await fetch("https://food-backend-ten.vercel.app/api/orderData", {
             // credentials: 'include',
             // Origin:"http://localhost:3000/login",
             method: 'POST',
@@ -62,7 +96,8 @@ export default function Cartt() {
                                 <td className='text-white'>{food.price}</td>
                                 <td className='text-white' >
                                     <button type="button" className="btn p-0 text-white">
-                                        <Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} />
+
+                                        <Delete onClick={handleDelete} />
                                     </button>
                                 </td>
                             </tr>
