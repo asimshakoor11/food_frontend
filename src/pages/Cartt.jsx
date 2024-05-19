@@ -3,6 +3,7 @@ import Delete from '@mui/icons-material/Delete';
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 import { loadStripe } from '@stripe/stripe-js';
 
+
 export default function Cartt() {
     let data = useCart();
     let dispatch = useDispatchCart();
@@ -17,9 +18,8 @@ export default function Cartt() {
     //   console.log(index)
     //   dispatch({type:"REMOVE",index:index})
 
-    const handleDelete = () => { 
+    const handleDelete = (index) => { 
         dispatch({ type: "REMOVE", index: index }) 
-        toast.success("Item Delete");
     }
     // }
 
@@ -96,7 +96,6 @@ export default function Cartt() {
                                 <td className='text-white'>{food.price}</td>
                                 <td className='text-white' >
                                     <button type="button" className="btn p-0 text-white">
-
                                         <Delete onClick={handleDelete} />
                                     </button>
                                 </td>

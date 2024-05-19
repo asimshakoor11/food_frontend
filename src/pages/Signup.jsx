@@ -23,7 +23,7 @@ export const Signup = () => {
             }).then(function (response) {
                 toast.success(response.data.message);
                 if (response.data.message == 'Signup Successfull!') {
-                    toast.success("Signup Successfull");
+                    toast.success("Signup Successfull",{duration: 4000});
                     navigate("/login")
                 }
             })

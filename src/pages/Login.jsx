@@ -25,7 +25,7 @@ export const Login = () => {
         if (response.data.message === "Login Successfull") {
           localStorage.setItem("authtoken", response.data.authToken)
           localStorage.setItem("userEmail", credientials.email)
-          toast.success("Login Successfull");
+          toast.success("Login Successfull",{duration: 4000});
 
           navigate("/")
         }
@@ -38,25 +38,6 @@ export const Login = () => {
       // alert("Fill the required details")
       toast.error('Fill the required details.');
     }
-
-    //   const response = await fetch('http://localhost:5000/api/loginuser', {
-    //     method: "POST",
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ email: credientials.email, password: credientials.password })
-    //   });
-    //   const json = await response.json()
-
-    //   if (!json.success) {
-    //     alert("enter valid credientials")
-    //   }
-
-    //   if (json.success) {
-    //     localStorage.setItem("authtoken", json.authToken)
-    //     localStorage.setItem("userEmail", credientials.email)
-    //     navigate("/")
-    //   }
 
   }
 

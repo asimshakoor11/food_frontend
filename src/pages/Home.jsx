@@ -4,13 +4,19 @@ import { Footer } from '../components/Footer'
 import { Card } from '../components/Card'
 import { useState, useEffect } from 'react'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
+  const navigate = useNavigate()
 
   const [search, setSearch] = useState("");
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
 
+  if(!localStorage.getItem('authtoken')){    
+    navigate('/login')
+  }
+  
   const loadData = async () => {
     return (
       await axios.get('https://food-backend-ten.vercel.app/api/foodData')
