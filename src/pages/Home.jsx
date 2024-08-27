@@ -13,16 +13,16 @@ export const Home = () => {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
 
-  if(!localStorage.getItem('authtoken')){    
+  if (!localStorage.getItem('authtoken')) {
     navigate('/login')
   }
-  
+
   const loadData = async () => {
     return (
       await axios.get('https://food-backend-ten.vercel.app/api/foodData')
         .then((response) => {
-          setFoodItem(response.data[0])
-          setFoodCat(response.data[1])
+          setFoodItem(response.data[0] || []); // Use empty array if response.data[0] is undefined
+          setFoodCat(response.data[1] || []);
         })
         .catch(err => {
           console.error(err);
@@ -31,6 +31,8 @@ export const Home = () => {
 
   useEffect(() => {
     loadData()
+    console.log(foodCat)
+    console.log(foodItem)
   }, [])
 
 
@@ -46,15 +48,15 @@ export const Home = () => {
               </div>
             </div>
             <div className="carousel-item active">
-              <img src="https://source.unsplash.com/random/900x350/?burger" className="d-block w-100" alt="..." />
+              <img src="/img1.png" className="d-block w-100" alt="..." />
 
             </div>
             <div className="carousel-item">
-              <img src="https://source.unsplash.com/random/900x350/?pastery" className="d-block w-100" alt="..." />
+              <img src="/img2.jpg" className="d-block w-100" alt="..." />
 
             </div>
             <div className="carousel-item">
-              <img src="https://source.unsplash.com/random/900x350/?pizza" className="d-block w-100" alt="..." />
+              <img src="/img3.jpg" className="d-block w-100" alt="..." />
 
             </div>
           </div>
@@ -70,7 +72,7 @@ export const Home = () => {
       </div>
       <div className='container'>
         {
-          foodCat != []
+          foodCat.length > 0
             ? foodCat.map((data) => {
               return (
                 <div className='row mb-3'>
@@ -78,7 +80,7 @@ export const Home = () => {
                     {data.CategoryName}
                   </div>
                   <hr />
-                  {foodItem != [] ?
+                  {foodItem.length > 0 ?
                     foodItem.filter((item) => (item.CategoryName === data.CategoryName) && (item.name.toLowerCase().includes(search.toLowerCase())))
                       .map(filteritems => {
                         return (
